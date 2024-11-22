@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabulator Example</title>
+  <link rel="stylesheet" href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css">
+  <style>
+    /* Custom rounded table styling */
+    .tabulator {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+    }
+    .tabulator-header {
+      border-radius: 10px 10px 0 0;
+    }
+    .tabulator-header .custom-header-btn {
+      margin-left: 5px;
+      padding: 3px 6px;
+      font-size: 12px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .tabulator-header .custom-header-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div id="example-table"></div>
+
+  <script src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+  <script>
+    // Create the table with custom header buttons
+    const table = new Tabulator("#example-table", {
+      data: [ // Sample data
+        {id: 1, name: "John", age: 29},
+        {id: 2, name: "Jane", age: 32},
+      ],
+      layout: "fitColumns",
+      columns: [
+        {title: "Name", field: "name"},
+        {
+          title: "Age",
+          field: "age",
+          headerTemplate: function () {
+            const container = document.createElement("div");
+            container.style.display = "flex";
+            container.style.alignItems = "center";
+
+            const title = document.createElement("span");
+            title.innerText = "Age";
+
+            const button = document.createElement("button");
+            button.innerText = "+";
+            button.className = "custom-header-btn";
+            button.onclick = () => alert("Custom button clicked!");
+
+            container.appendChild(title);
+            container.appendChild(button);
+            return container;
+          }
+        },
+      ],
+    });
+  </script>
+</body>
+</html>
