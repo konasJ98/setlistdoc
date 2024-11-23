@@ -1,6 +1,6 @@
 
 // Function to save data as a JSON file
-function saveDataAsJSON() {
+function TableDataToJson() {
     const tableData = table.getData();  // Get all the table data
 
     // Convert data to JSON
@@ -19,7 +19,7 @@ function saveDataAsJSON() {
   }
 
   // Function to load data from a JSON file
-  function loadDataFromJSON(file) {
+  function JsonToTableData(file) {
     const reader = new FileReader();
 
     reader.onload = function(event) {
