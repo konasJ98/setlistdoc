@@ -1,24 +1,50 @@
-<style>
-    /* Custom rounded table styling */
-    .tabulator {
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid #ccc;
-    }
-    .tabulator-header {
-      border-radius: 10px 10px 0 0;
-    }
-    .tabulator-header .custom-header-btn {
-      margin-left: 5px;
-      padding: 3px 6px;
-      font-size: 12px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-    .tabulator-header .custom-header-btn:hover {
-      background-color: #0056b3;
-    }
-  </style>
+
+/* Custom rounded table styling */
+.tabulator {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #cccccc;
+}
+
+/* Container holding the table and side button */
+.table-container {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    position: relative;
+  }
+  
+ /* Ensure the container matches the table height */
+.add-column-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Match table's height */
+    margin-left: 10px; /* Space between table and button */
+  }
+  
+  #add-column-button {
+    width: 50px; /* Fixed width for the button */
+    height: 50px; /* Adjust button size */
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-row-container {
+    margin-top: 10px; /* Space between table and button */
+    text-align: center; /* Center the button */
+  }
+  
+  #add-row-button {
+    width: 100%; /* Match table's width */
+    height: 40px; /* Button height */
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
