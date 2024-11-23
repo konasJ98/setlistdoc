@@ -3,70 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tabulator Example</title>
+  <title>Songpool</title>
+  <script src="https://moment.github.io/luxon/global/luxon.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css">
-  <style>
-    /* Custom rounded table styling */
-    .tabulator {
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid #ccc;
-    }
-    .tabulator-header {
-      border-radius: 10px 10px 0 0;
-    }
-    .tabulator-header .custom-header-btn {
-      margin-left: 5px;
-      padding: 3px 6px;
-      font-size: 12px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-    .tabulator-header .custom-header-btn:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div id="example-table"></div>
 
+<body>
+  <!-- Structure -->
+  <div class="add-row-container">
+    <button id="add-row-button"></button>
+  </div>
+  <div style="display: flex; align-items: flex-start;">
+    <div id="tabulator-table"></div>
+    <div class="add-column-container">
+      <button id="add-column-button"></button>
+    </div>
+  </div>
+
+  <!-- Save and Load buttons -->
+  <button id="saveBtn">Save Data as JSON</button>
+  <br><br>
+  <input type="file" id="fileInput" accept=".json" />
+  <button id="loadBtn">Load Data from JSON</button>
+  <button id="addBtn">Add entry to table</button>
+
+  <!-- Tabulator table -->
   <script src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
   <script>
-    // Create the table with custom header buttons
-    const table = new Tabulator("#example-table", {
-      data: [ // Sample data
-        {id: 1, name: "John", age: 29},
-        {id: 2, name: "Jane", age: 32},
-      ],
-      layout: "fitColumns",
-      columns: [
-        {title: "Name", field: "name"},
-        {
-          title: "Age",
-          field: "age",
-          headerTemplate: function () {
-            const container = document.createElement("div");
-            container.style.display = "flex";
-            container.style.alignItems = "center";
-
-            const title = document.createElement("span");
-            title.innerText = "Age";
-
-            const button = document.createElement("button");
-            button.innerText = "+";
-            button.className = "custom-header-btn";
-            button.onclick = () => alert("Custom button clicked!");
-
-            container.appendChild(title);
-            container.appendChild(button);
-            return container;
-          }
-        },
-      ],
+    var table = new Tabulator("#tabulator-table", {
+        persistence:true,
+        persistenceID:"adsf",
+        //frozenRows:1,
+        movableRows:true,
+        movableColumns: true,
+        rowHeader:{headerSort:false, resizable: false, minWidth:30, width:30, rowHandle:true, formatter:"handle"},
+        columns:[
+            {title:"Title", field:"title", sorter:"number", editor:"input", frozen:true},
+            {title:"Duration", field:"duration", formatter:"datetimediff", editor:"input"},
+            {title:"Tempo", field:"tempo", sorter:"number", editor:"input"},
+            {title:"Key (original)", field:"key_original", editor:"input"},
+            {title:"Key (cover)", field:"key_cover", editor:"input"},
+            {title:"Comment", field:"comment", editor:"input"},
+            {frozen:true}
+        ],
+        data:[{}]
     });
   </script>
+
+  <!-- Add row/column buttons -->
+  <script>
+    // Add column button functionality
+    document.getElementById("add-column-button").addEventListener("click", () => {
+      table.addColumn();
+    });
+    document.getElementById("add-row-button").addEventListener("click", () => {
+      table.addRow();
+    });
+  </script>
+
+  <!-- Event listeners -->
+  <script>
+    // Add event listeners for save and load buttons
+    document.getElementById("addBtn").addEventListener("click", saveDataAsJSON);
+
+    document.getElementById("saveBtn").addEventListener("click", saveDataAsJSON);
+    
+    document.getElementById("loadBtn").addEventListener("click", function() {
+      const fileInput = document.getElementById("fileInput");
+      const file = fileInput.files[0];  // Get the selected file
+
+      if (file) {
+        loadDataFromJSON(file);  // Load data from the file
+      } else {
+        alert("Please select a JSON file to load.");
+      }
+    });
+  </script>
+
+  <!-- Saving and loading -->
+  <script src="data.js"></script>
 </body>
 </html>
