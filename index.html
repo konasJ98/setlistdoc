@@ -12,7 +12,7 @@
 
 <body>
   <!-- Structure -->
-  <div class="table-grid">
+  <div class="page-grid">
     <div class="grid-item">
       <button id="add-row-button"></button>
     </div>
@@ -20,17 +20,29 @@
       <button id="print-button">Print</button>
     </div>
     <div class="grid-item">
-      <div id="tabulator-table"></div>
+      <div id="main-table"></div>
     </div>
     <div class="grid-item">
       <button id="add-column-button"></button>
     </div>
+    <div id="sheet-bar-container">
+      <div class="sheet-button-container">
+        <button class="sheet-button" id="Table-A-Btn"></button>
+        <button class="sheet-button" id="Table-B-Btn"></button>
+        <button class="sheet-button" id="Table-C-Btn"></button>
+      </div>
+      <div class="add-sheet-button-container">
+        <button id="Add-Sheet-Btn">test</button>
+      </div>
+    </div>
   </div>
 
-  <!-- Tabulator table -->
+
+
+  <!-- Main table scripts -->
   <script src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
   <script>
-    var table = new Tabulator("#tabulator-table", {
+    var table = new Tabulator("#main-table", {
         persistence:true,
         persistenceID:"adsf",
         //frozenRows:1,
@@ -50,9 +62,27 @@
     });
   </script>
 
+
   <!-- Event listeners -->
   <script>
+    // Immediately save changes in data
     table.on("dataChanged", DataToCookies);
+
+    // Add table buttons functionality
+    document.getElementById("add-column-button").addEventListener("click", () => {
+      table.addColumn();
+    });
+    document.getElementById("add-row-button").addEventListener("click", () => {
+      table.addRow();
+    });
+
+    // Add sheet buttons functionality
+    document.getElementById("Add-Sheet-Btn").addEventListener("click", () => {
+      const leftContainer = document.querySelector('.sheet-button-container');
+      const newItem = document.createElement('button');
+      newItem.classList.add('sheet-button');  // Adding a class
+      leftContainer.appendChild(newItem);
+    });
   </script>
 
   <!-- Saving and loading -->

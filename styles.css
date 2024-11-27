@@ -1,9 +1,8 @@
 
-
-.table-grid {
+.page-grid {
     display: grid;
     grid-template-columns: 1fr 50px; /* Fixed column width */
-    grid-template-rows: 50px 1fr;    /* Fixed top row height and flexible bottom row */
+    grid-template-rows: 50px 1fr 50px;    /* Fixed top row height and flexible bottom row */
     gap: 10px;                          /* Space between cells */
     width: 100%;                         /* Make grid width 100% of the viewport */
     height: 90vh;
@@ -24,7 +23,7 @@
     box-sizing: border-box; /* Include borders in width/height calculation */
 }
 
-#tabulator-table {
+#main-table {
     grid-area: 2 / 1 / span 1 / span 1;
     border-radius: 10px;
     overflow: hidden;
@@ -65,3 +64,86 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+#sheet-bar-container {
+    grid-area: 3 / 1 / span 1 / span 2;
+    width: 100%;
+    height: 100%;
+    background-color: #28a745;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    overflow: hidden; /* Adds a scrollbar if needed */
+    border: 2px solid #ccc; /* Optional: visual border for the container */
+    box-sizing: border-box; /* Ensures padding/border doesn't affect size */
+    display: flex;          /* Enables Flexbox */
+    justify-content: space-between; /* Optional: space out the items, if needed */
+}
+
+.sheet-button-container {
+    width: 90%;
+    height: 100%;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: auto; /* Adds a scrollbar if needed */
+    border: 1px solid #ccc; /* Optional: visual border for the container */
+    box-sizing: border-box; /* Ensures padding/border doesn't affect size */
+    
+    background-color: #f9f9f9; /* Light background for clarity */
+}
+
+.add-sheet-button-container {
+    width: 10%;
+    height: 100%;
+    cursor: pointer;
+    border: 1px solid #ccc; /* Optional: visual border for the container */
+    box-sizing: border-box; /* Ensures padding/border doesn't affect size */
+    background-color: #f700ff;
+    
+    padding: 10px;
+}
+
+.sheet-button {
+    width: 80px;
+    height: 100%;
+    background-color: #d6d312;
+    color: rgb(97, 54, 54);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sheet-button:hover {
+    width: 80px;
+    height: 80%;
+    background-color: #afad10;
+    color: rgb(129, 58, 58);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#Add-Sheet-Btn {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #d6d312;
+    color: rgb(97, 54, 54);
+    cursor: pointer;
+    transition: all 0.2s;
+}  
+#Add-Sheet-Btn:hover {
+    background-color: #918e0e;
+    transition: all 0.2s;
+} 
+#Add-Sheet-Btn:active {
+    background-color: #646305;
+    transition: all 0.0s;
+} 

@@ -35,5 +35,9 @@ function saveDataAsJSON() {
 
   //Function to save data to cookies
   function DataToCookies(){
-    window.confirm("asdf");
+    //window.confirm("asdf");
+  }
+
+  function SaveTableData(){
+    
   }
