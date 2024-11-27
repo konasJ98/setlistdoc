@@ -18,7 +18,7 @@ function saveDataAsJSON() {
     link.click();
   }
 
-  // Function to load data from a JSON file
+// Function to load data from a JSON file
   function loadDataFromJSON(file) {
     const reader = new FileReader();
 
@@ -31,4 +31,9 @@ function saveDataAsJSON() {
     };
 
     reader.readAsText(file); // Read the file as text
+  }
+
+  //Function to save data to cookies
+  function DataToCookies(){
+    window.confirm("asdf");
   }

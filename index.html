@@ -27,13 +27,6 @@
     </div>
   </div>
 
-  <!-- Save and Load buttons -->
-  <button id="saveBtn">Save Data as JSON</button>
-  <br><br>
-  <input type="file" id="fileInput" accept=".json" />
-  <button id="loadBtn">Load Data from JSON</button>
-  <button id="addBtn">Add entry to table</button>
-
   <!-- Tabulator table -->
   <script src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
   <script>
@@ -51,40 +44,15 @@
             {title:"Key (original)", field:"key_original", editor:"input"},
             {title:"Key (cover)", field:"key_cover", editor:"input"},
             {title:"Comment", field:"comment", editor:"input"},
-            {frozen:true}
+            {title:"Notes", field:"notes"}
         ],
         data:[{},{},{},{},{},{},{},{}]
     });
   </script>
 
-  <!-- Add row/column buttons -->
-  <script>
-    // Add column button functionality
-    document.getElementById("add-column-button").addEventListener("click", () => {
-      table.addColumn();
-    });
-    document.getElementById("add-row-button").addEventListener("click", () => {
-      table.addRow();
-    });
-  </script>
-
   <!-- Event listeners -->
   <script>
-    // Add event listeners for save and load buttons
-    document.getElementById("addBtn").addEventListener("click", saveDataAsJSON);
-
-    document.getElementById("saveBtn").addEventListener("click", saveDataAsJSON);
-    
-    document.getElementById("loadBtn").addEventListener("click", function() {
-      const fileInput = document.getElementById("fileInput");
-      const file = fileInput.files[0];  // Get the selected file
-
-      if (file) {
-        loadDataFromJSON(file);  // Load data from the file
-      } else {
-        alert("Please select a JSON file to load.");
-      }
-    });
+    table.on("dataChanged", DataToCookies);
   </script>
 
   <!-- Saving and loading -->
