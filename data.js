@@ -1,43 +1,65 @@
 
-// Function to save data as a JSON file
-function saveDataAsJSON() {
-    const tableData = table.getData();  // Get all the table data
+let loggingCookies=false;
 
-    // Convert data to JSON
-    const jsonData = JSON.stringify(tableData, null, 2);
+function saveTableData(table){
+  saveTableDataToCookies(table);
+}
 
-    // Create a Blob object with the JSON data
-    const blob = new Blob([jsonData], { type: "application/json" });
+function loadTableData(id){
+  return loadTableDataFromCookies(id);
+}
 
-    // Create a link to trigger the download
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "tableData.json";  // The name of the file
+function saveSheetInfo(){
 
-    // Trigger the download
-    link.click();
+}
+
+function loadSheetInfo(){
+
+}
+
+// Function to set a cookie
+// Function to set a cookie with SameSite=None and Secure attributes
+function setCookie(name, value, days) {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
+  const expiresStr = "expires=" + expires.toUTCString();
+  
+  // Set cookie with SameSite=None and Secure attributes
+  document.cookie = `${name}=${value};${expiresStr};path=/;SameSite=None;Secure`;
+}
+
+// Save table data (converted to JSON string) to cookies
+function saveTableDataToCookies(table) {
+  const tableData = table.getData();
+  filename=table.options.persistenceID;
+
+  const jsonData = JSON.stringify(tableData);  // Convert to JSON string
+  setCookie(filename, jsonData, 7000000);  // Save cookie for 7 days
+  if(loggingCookies) console.log("Table data saved to cookies! Name is "+filename);
+}
+
+// Function to get a cookie value by name
+function getCookie(name) {
+  const nameEq = name + "=";
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+      let c = cookies[i].trim();
+      if (c.indexOf(nameEq) === 0) return c.substring(nameEq.length, c.length);
   }
+  return null;
+}
 
-// Function to load data from a JSON file
-  function loadDataFromJSON(file) {
-    const reader = new FileReader();
-
-    reader.onload = function(event) {
-      const jsonData = event.target.result;
-      const data = JSON.parse(jsonData); // Parse the JSON data
-
-      // Load data into the table
-      table.setData(data);
-    };
-
-    reader.readAsText(file); // Read the file as text
+// Load table data from cookies
+function loadTableDataFromCookies(id) {
+  filename=id;
+  if(loggingCookies) console.log("Try loading cookie named "+filename)
+  const savedData = getCookie(id);  // Get saved table data cookie
+  if (savedData) {
+      const tableData = JSON.parse(savedData);  // Parse the JSON string back into an object
+      // Recreate the Tabulator table with the saved data
+      if(loggingCookies) console.log("Table data loaded from cookies! Name is "+filename);
+      return tableData;
+  } else {
+    if(loggingCookies) console.log("No table data found in cookies.");
   }
-
-  //Function to save data to cookies
-  function DataToCookies(){
-    //window.confirm("asdf");
-  }
-
-  function SaveTableData(){
-    
-  }
+}
